@@ -1,0 +1,28 @@
+# Environment variable files
+.env
+.env.*
+!.env.example
+
+# Dependencies & Build Outputs
+node_modules/
+dist/
+build/
+target/
+*.jar
+*.war
+
+# Python cache & logs
+__pycache__/
+*.pyc
+*.pyo
+*.log
+
+# IDE & OS files
+.DS_Store
+.idea/
+.vscode/
+
+# Docker persistent data volumes
+postgres_catalog_data/
+postgres_shipping_data/
+mongo_cart_data/
