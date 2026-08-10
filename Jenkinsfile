@@ -76,7 +76,7 @@ pipeline {
             echo 'Pipeline failed. Check logs above.'
         }
         always {
-            sh 'docker logout'
+            sh 'docker logout || true'
         }
     }
 }
