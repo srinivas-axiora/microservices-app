@@ -57,7 +57,7 @@ pipeline {
 
         stage('Build & Push Frontend') {
             steps {
-                dir('frontend') {
+                dir('frontend/ecommerce-frontend') {
                     sh '''
                         docker build -t $DOCKERHUB_USERNAME/frontend:${BUILD_NUMBER} -t $DOCKERHUB_USERNAME/frontend:latest .
                         docker push $DOCKERHUB_USERNAME/frontend:${BUILD_NUMBER}
