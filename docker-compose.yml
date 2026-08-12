@@ -184,6 +184,20 @@ services:
     networks:
       - backend-network
 
+  # 5. Jenkins CI/CD Automation Server
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    user: root
+    ports:
+      - "8081:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - backend-network
+
 networks:
   frontend-network:
     driver: bridge
@@ -194,3 +208,5 @@ volumes:
   postgres_catalog_data:
   postgres_shipping_data:
   mongo_cart_data:
+  jenkins_home:
+
