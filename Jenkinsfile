@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds')
         DOCKERHUB_USERNAME = 'srinivas5044'
+        EC2_PUBLIC_IP = '<YOUR_EC2_PUBLIC_IP>'
     }
 
     stages {
@@ -62,6 +63,20 @@ pipeline {
                         docker build -t $DOCKERHUB_USERNAME/frontend:${BUILD_NUMBER} -t $DOCKERHUB_USERNAME/frontend:latest .
                         docker push $DOCKERHUB_USERNAME/frontend:${BUILD_NUMBER}
                         docker push $DOCKERHUB_USERNAME/frontend:latest
+                    '''
+                }
+            }
+        }
+
+        stage('Deploy to AWS EC2') {
+            steps {
+                sshagent(['ec2-ssh-key']) {
+                    sh '''
+                        ssh -o StrictHostKeyChecking=no ubuntu@${EC2_PUBLIC_IP} '
+                            cd ~/microservices-app && \
+                            git pull origin main && \
+                            docker compose up -d --build
+                        '
                     '''
                 }
             }
