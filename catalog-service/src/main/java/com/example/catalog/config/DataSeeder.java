@@ -34,48 +34,51 @@ public class DataSeeder implements CommandLineRunner {
             System.out.println("Default user 'admin@admin.com' seeded successfully.");
         }
 
-        if (productRepository.count() > 0) {
-            System.out.println("Catalog database already seeded. Skipping initial data seeding.");
-            return;
+        // Clear old products/categories if re-seeding needed or count check
+        if (productRepository.count() == 0) {
+            System.out.println("Seeding catalog database with Flipkart-style categories and products...");
+
+            // 1. Create Categories (matching Flipkart header nav)
+            Category grocery = categoryRepository.save(new Category("Grocery", "Daily essentials, staples and snacks", "https://images.unsplash.com/photo-1542838132-92c53300491e?w=200"));
+            Category mobiles = categoryRepository.save(new Category("Mobiles", "Smartphones, accessories and tablets", "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200"));
+            Category fashion = categoryRepository.save(new Category("Fashion", "Men, women clothing and footwear", "https://images.unsplash.com/photo-1445205170230-053b83016050?w=200"));
+            Category electronics = categoryRepository.save(new Category("Electronics", "Laptops, audio and smart gadgets", "https://images.unsplash.com/photo-1498049860654-af1a5c566876?w=200"));
+            Category homeFurniture = categoryRepository.save(new Category("Home & Furniture", "Home decor, furniture and essentials", "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=200"));
+            Category appliances = categoryRepository.save(new Category("Appliances", "TVs, refrigerators and washing machines", "https://images.unsplash.com/photo-1584992236310-6edddc08acff?w=200"));
+            Category flights = categoryRepository.save(new Category("Flight Booking", "Domestic & international flight deals", "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=200"));
+            Category toysBeauty = categoryRepository.save(new Category("Toys, Beauty & More", "Toys, cosmetics and personal care", "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200"));
+            Category twoWheelers = categoryRepository.save(new Category("Two Wheelers", "Electric bikes, scooters and gear", "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=200"));
+
+            // 2. Create Products
+            List<Product> products = Arrays.asList(
+                // Mobiles
+                new Product("iPhone 15 Pro Max 256GB", "A17 Pro chip, Titanium design, 48MP camera system.", new BigDecimal("1199.00"), 50, mobiles.getId(), "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600"),
+                new Product("Samsung Galaxy S24 Ultra", "Galaxy AI, 200MP camera, Snapdragon 8 Gen 3.", new BigDecimal("1299.99"), 40, mobiles.getId(), "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=600"),
+                new Product("OnePlus 12 5G Smooth Green", "Snapdragon 8 Gen 3, 100W SuperVOOC fast charging.", new BigDecimal("799.00"), 65, mobiles.getId(), "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600"),
+
+                // Fashion Best Sellers
+                new Product("Men's Red Lightweight Bomber Jacket", "Water-resistant windbreaker sport jacket with zip front.", new BigDecimal("49.99"), 120, fashion.getId(), "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600"),
+                new Product("Classic White Street Sneakers", "Trendy white leather urban sneakers with rubber soles.", new BigDecimal("59.99"), 150, fashion.getId(), "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600"),
+                new Product("Women's Stylish Denim Jacket", "Classic vintage wash denim jacket with buttoned pockets.", new BigDecimal("64.50"), 80, fashion.getId(), "https://images.unsplash.com/photo-1543076447-215ad9ba6923?w=600"),
+                new Product("Slim Fit Cotton Oxford Shirt", "Breathable organic cotton formal button-down shirt.", new BigDecimal("39.90"), 95, fashion.getId(), "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600"),
+
+                // Electronics
+                new Product("Sony WH-1000XM5 Wireless Headphones", "Industry leading noise canceling over-ear headphones.", new BigDecimal("348.00"), 75, electronics.getId(), "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600"),
+                new Product("MacBook Pro 16 M3 Max", "16-inch Liquid Retina XDR display, 36GB Unified Memory.", new BigDecimal("2499.00"), 20, electronics.getId(), "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600"),
+                new Product("Apple Watch Series 9 GPS", "Advanced health sensors, S9 SiP, Double tap gesture.", new BigDecimal("399.00"), 85, electronics.getId(), "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600"),
+
+                // Home & Furniture
+                new Product("Modern Scandinavian Velvet Armchair", "Ergonomic lounge accent chair with gold metal legs.", new BigDecimal("219.00"), 30, homeFurniture.getId(), "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=600"),
+                new Product("Minimalist Solid Wood Dining Table", "6-seater natural oak wood dining room table.", new BigDecimal("499.00"), 15, homeFurniture.getId(), "https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?w=600"),
+
+                // Appliances
+                new Product("Smart 4K QLED 65-inch TV", "Quantum Dot technology, 120Hz refresh rate, Dolby Atmos.", new BigDecimal("749.99"), 25, appliances.getId(), "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=600"),
+                new Product("Automatic Espresso Coffee Machine", "15-bar Italian pump espresso maker with steam wand.", new BigDecimal("189.99"), 45, appliances.getId(), "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=600")
+            );
+
+            productRepository.saveAll(products);
+            System.out.println("Catalog database seeded with " + products.size() + " Flipkart products.");
         }
-
-        System.out.println("Seeding catalog database with categories and sample products...");
-
-        // 1. Create Categories
-        Category electronics = categoryRepository.save(new Category("Electronics", "Gadgets, smartphones, audio, and devices"));
-        Category clothing = categoryRepository.save(new Category("Clothing", "Men and Women fashion wear"));
-        Category home = categoryRepository.save(new Category("Home & Kitchen", "Home appliances, decor, and kitchenware"));
-        Category books = categoryRepository.save(new Category("Books & Stationery", "Bestsellers, novels, and office supplies"));
-
-        // 2. Create Products (18 products across categories)
-        List<Product> products = Arrays.asList(
-            // Electronics
-            new Product("Wireless Noise-Canceling Headphones", "Premium over-ear headphones with active noise cancellation and 30-hour battery life.", new BigDecimal("199.99"), 45, electronics.getId(), "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500"),
-            new Product("Smart OLED Watch Series 7", "Water-resistant smartwatch with heart rate sensor, GPS, and OLED display.", new BigDecimal("249.50"), 30, electronics.getId(), "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500"),
-            new Product("Ultra Slim Laptop 15 Pro", "Lightweight high-performance laptop featuring 16GB RAM and 512GB SSD.", new BigDecimal("899.00"), 15, electronics.getId(), "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500"),
-            new Product("4K Ultra HD Action Camera", "Compact waterproof action camera capable of 4K 60fps recording.", new BigDecimal("129.99"), 60, electronics.getId(), "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=500"),
-            new Product("Portable Bluetooth Speaker", "Rugged outdoor Bluetooth speaker with deep bass and IPX7 rating.", new BigDecimal("59.95"), 100, electronics.getId(), "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500"),
-
-            // Clothing
-            new Product("Classic Cotton Oxford Shirt", "100% breathable organic cotton button-up casual shirt.", new BigDecimal("39.99"), 120, clothing.getId(), "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500"),
-            new Product("Slim Fit Stretch Denim Jeans", "Durable stretch denim jeans with modern slim fit cut.", new BigDecimal("54.90"), 85, clothing.getId(), "https://images.unsplash.com/photo-1542272604-780c36856d67?w=500"),
-            new Product("Lightweight Running Sneakers", "Ergonomic mesh running shoes with cushioned foam insoles.", new BigDecimal("79.99"), 90, clothing.getId(), "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500"),
-            new Product("Windproof Winter Parka Jacket", "Insulated winter jacket with fleece lining and detachable hood.", new BigDecimal("119.00"), 25, clothing.getId(), "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=500"),
-            new Product("Casual Crewneck Sweatshirt", "Soft fleece crewneck pullover ideal for everyday casual wear.", new BigDecimal("29.99"), 150, clothing.getId(), "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500"),
-
-            // Home & Kitchen
-            new Product("Automatic Espresso Coffee Machine", "15-bar Italian pump espresso machine with integrated milk frother.", new BigDecimal("159.99"), 20, home.getId(), "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500"),
-            new Product("Smart HEPA Air Purifier", "Filters 99.97% of airborne particles with quiet night mode.", new BigDecimal("89.95"), 40, home.getId(), "https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=500"),
-            new Product("Non-Stick Ceramic Cookware Set", "10-piece non-stick non-toxic ceramic pots and pans set.", new BigDecimal("129.50"), 35, home.getId(), "https://images.unsplash.com/photo-1584992236310-6edddc08acff?w=500"),
-            new Product("Modern Minimalist Desk Lamp", "LED touch-control table lamp with adjustable brightness and USB charger.", new BigDecimal("34.99"), 75, home.getId(), "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500"),
-
-            // Books & Stationery
-            new Product("Hardcover Architectural Design Guide", "Comprehensive visual guide to modern architectural principles.", new BigDecimal("45.00"), 50, books.getId(), "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500"),
-            new Product("Premium Leather Notebook", "Refillable genuine leather journal with 200 unruled ivory pages.", new BigDecimal("24.99"), 110, books.getId(), "https://images.unsplash.com/photo-1531346878377-a5be20888e57?w=500"),
-            new Product("Ergonomic Fountain Pen Set", "Fine nib fountain pen with converter and 5 refill ink cartridges.", new BigDecimal("19.99"), 95, books.getId(), "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=500")
-        );
-
-        productRepository.saveAll(products);
-        System.out.println("Catalog seeding completed successfully with " + products.size() + " products.");
     }
 }
+

@@ -15,6 +15,9 @@ public class Category {
 
     private String description;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     public Category() {
     }
 
@@ -23,10 +26,17 @@ public class Category {
         this.description = description;
     }
 
-    public Category(Long id, String name, String description) {
+    public Category(String name, String description, String imageUrl) {
+        this.name = name;
+        this.description = description;
+        this.imageUrl = imageUrl;
+    }
+
+    public Category(Long id, String name, String description, String imageUrl) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.imageUrl = imageUrl;
     }
 
     public Long getId() {
@@ -52,4 +62,13 @@ public class Category {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 }
+

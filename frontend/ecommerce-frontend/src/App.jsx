@@ -13,6 +13,7 @@ import api, { getUserId } from './api';
 
 function App() {
   const [cartCount, setCartCount] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     fetchCartCount();
@@ -33,11 +34,11 @@ function App() {
   return (
     <BrowserRouter>
       <div className="app-container">
-        <Navbar cartCount={cartCount} onLogout={fetchCartCount} />
+        <Navbar cartCount={cartCount} onLogout={fetchCartCount} onSearch={setSearchQuery} />
 
-        <main className="main-content">
+        <main style={{ minHeight: 'calc(100vh - 120px)' }}>
           <Routes>
-            <Route path="/" element={<HomePage onCartChange={fetchCartCount} />} />
+            <Route path="/" element={<HomePage onCartChange={fetchCartCount} searchQuery={searchQuery} />} />
             <Route path="/login" element={<AuthPage onAuthSuccess={fetchCartCount} />} />
             <Route path="/account" element={<AccountPage />} />
             <Route path="/products/:id" element={<ProductDetailPage onCartChange={fetchCartCount} />} />
@@ -52,5 +53,6 @@ function App() {
     </BrowserRouter>
   );
 }
+
 
 export default App;
