@@ -2,8 +2,10 @@ package com.example.catalog.config;
 
 import com.example.catalog.model.Category;
 import com.example.catalog.model.Product;
+import com.example.catalog.model.User;
 import com.example.catalog.repository.CategoryRepository;
 import com.example.catalog.repository.ProductRepository;
+import com.example.catalog.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -16,14 +18,22 @@ public class DataSeeder implements CommandLineRunner {
 
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
+    private final UserRepository userRepository;
 
-    public DataSeeder(CategoryRepository categoryRepository, ProductRepository productRepository) {
+    public DataSeeder(CategoryRepository categoryRepository, ProductRepository productRepository, UserRepository userRepository) {
         this.categoryRepository = categoryRepository;
         this.productRepository = productRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
+        // Seed default admin user if not exists
+        if (userRepository.findByEmail("admin@admin.com").isEmpty()) {
+            userRepository.save(new User("admin@admin.com", "admin", "Admin User"));
+            System.out.println("Default user 'admin@admin.com' seeded successfully.");
+        }
+
         if (productRepository.count() > 0) {
             System.out.println("Catalog database already seeded. Skipping initial data seeding.");
             return;
