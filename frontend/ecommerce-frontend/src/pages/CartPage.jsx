@@ -241,7 +241,7 @@ const CartPage = ({ onCartChange }) => {
                       {/* Price */}
                       <div style={{ textAlign: 'right' }}>
                         <span style={{ fontSize: '1.15rem', fontWeight: '700', color: '#0F1111' }}>
-                          ₹{Number(item.price * item.quantity).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                          ${Number(item.price * item.quantity).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                         </span>
                       </div>
                     </div>
@@ -253,7 +253,7 @@ const CartPage = ({ onCartChange }) => {
             {/* Bottom Subtotal */}
             {items.length > 0 && (
               <div style={{ textAlign: 'right', padding: '1rem 0 0 0', fontSize: '1.15rem', color: '#0F1111' }}>
-                Subtotal ({selectedCount} items): <span style={{ fontWeight: '700' }}>₹{selectedTotal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+                Subtotal ({selectedCount} items): <span style={{ fontWeight: '700' }}>${selectedTotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
               </div>
             )}
           </div>
@@ -306,7 +306,7 @@ const CartPage = ({ onCartChange }) => {
                       <div key={item.productId} style={{ border: '1px solid #ddd', borderRadius: '4px', padding: '0.75rem', display: 'flex', flexDirection: 'column' }}>
                         <img src={productDetails.imageUrl || 'https://via.placeholder.com/150'} alt="" style={{ height: '140px', objectFit: 'contain', marginBottom: '0.5rem' }} />
                         <h4 style={{ fontSize: '0.9rem', fontWeight: '500', color: '#0F1111', height: '2.4em', overflow: 'hidden' }}>{productDetails.name || `Product #${item.productId}`}</h4>
-                        <div style={{ fontWeight: '700', margin: '0.5rem 0', color: '#B12704' }}>₹{item.price}</div>
+                        <div style={{ fontWeight: '700', margin: '0.5rem 0', color: '#B12704' }}>${item.price}</div>
                         <button onClick={() => handleMoveToCart(item)} style={{ background: '#FFF', border: '1px solid #D5D9D9', borderRadius: '8px', padding: '0.4rem', cursor: 'pointer', fontSize: '0.85rem' }}>
                           Move to cart
                         </button>
@@ -321,7 +321,7 @@ const CartPage = ({ onCartChange }) => {
                   <div key={product.id} style={{ border: '1px solid #ddd', borderRadius: '4px', padding: '0.75rem', display: 'flex', flexDirection: 'column' }}>
                     <img src={product.imageUrl || 'https://via.placeholder.com/150'} alt="" style={{ height: '140px', objectFit: 'contain', marginBottom: '0.5rem' }} />
                     <h4 style={{ fontSize: '0.9rem', fontWeight: '500', color: '#0F1111', height: '2.4em', overflow: 'hidden' }}>{product.name}</h4>
-                    <div style={{ fontWeight: '700', margin: '0.5rem 0', color: '#B12704' }}>₹{product.price}</div>
+                    <div style={{ fontWeight: '700', margin: '0.5rem 0', color: '#B12704' }}>${product.price}</div>
                     <button
                       onClick={() => handleMoveToCart({ productId: String(product.id), price: Number(product.price) })}
                       style={{ background: '#FFD814', border: '1px solid #FCD200', borderRadius: '8px', padding: '0.4rem', cursor: 'pointer', fontSize: '0.85rem', fontWeight: '500' }}
@@ -345,7 +345,7 @@ const CartPage = ({ onCartChange }) => {
 
             <div style={{ fontSize: '1.15rem', color: '#0F1111', marginBottom: '0.75rem' }}>
               Subtotal ({selectedCount} items): <br/>
-              <span style={{ fontSize: '1.3rem', fontWeight: '700' }}>₹{selectedTotal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+              <span style={{ fontSize: '1.3rem', fontWeight: '700' }}>${selectedTotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
             </div>
 
             <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', color: '#0F1111', marginBottom: '1rem', cursor: 'pointer' }}>
@@ -383,7 +383,7 @@ const CartPage = ({ onCartChange }) => {
                   <img src={item.imageUrl || 'https://via.placeholder.com/80'} alt="" style={{ width: '60px', height: '60px', objectFit: 'contain' }} />
                   <div>
                     <h5 style={{ fontSize: '0.8rem', fontWeight: '500', color: '#0F1111', maxHeight: '2.4em', overflow: 'hidden' }}>{item.name}</h5>
-                    <div style={{ fontSize: '0.85rem', fontWeight: '700', color: '#B12704' }}>₹{item.price}</div>
+                    <div style={{ fontSize: '0.85rem', fontWeight: '700', color: '#B12704' }}>${item.price}</div>
                     <button
                       onClick={() => handleMoveToCart({ productId: String(item.id), price: Number(item.price) })}
                       style={{ background: '#FFD814', border: '1px solid #FCD200', borderRadius: '12px', padding: '0.2rem 0.6rem', fontSize: '0.75rem', cursor: 'pointer', marginTop: '0.25rem' }}
