@@ -34,15 +34,16 @@ public class DataSeeder implements CommandLineRunner {
             System.out.println("Default user 'admin@admin.com' seeded successfully.");
         }
 
-        // If products are already seeded with full catalog (>= 30 products), skip
-        if (productRepository.count() >= 30) {
-            System.out.println("Catalog database already seeded with 30+ products. Skipping data seeding.");
+        // If products count is less than 36, clear and re-seed the full catalog
+        if (productRepository.count() < 36) {
+            System.out.println("Re-seeding catalog database with all 36 products...");
+            productRepository.deleteAll();
+            categoryRepository.deleteAll();
+        } else {
+            System.out.println("Catalog database already contains " + productRepository.count() + " products. Skipping seeding.");
             return;
         }
 
-        // Clear existing product/category tables to re-seed fresh catalog
-        productRepository.deleteAll();
-        categoryRepository.deleteAll();
 
         System.out.println("Seeding catalog database with 35+ Flipkart-style products...");
 
