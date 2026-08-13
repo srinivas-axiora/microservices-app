@@ -24,13 +24,14 @@ const Navbar = ({ cartCount = 0, onLogout, onSearch }) => {
   return (
     <header className="fk-header">
       <div className="fk-header-container">
-        {/* Flipkart-Style Brand Logo */}
+        {/* MicroStore Brand Logo */}
         <Link to="/" className="fk-logo-box">
-          <div className="fk-logo-text">Flipkart</div>
+          <div className="fk-logo-text">MicroStore</div>
           <div className="fk-logo-sub">
             Explore <span className="fk-plus">Plus✦</span>
           </div>
         </Link>
+
 
         {/* Global Search Bar */}
         <div className="fk-search-box">
