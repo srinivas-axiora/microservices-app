@@ -17,6 +17,7 @@ services:
 
   # 0. Frontend React App
   frontend:
+    image: srinivas5044/frontend:latest
     build:
       context: ./frontend/ecommerce-frontend
       dockerfile: Dockerfile
@@ -30,6 +31,7 @@ services:
 
   # 1. Catalog Service (Java Spring Boot + PostgreSQL)
   catalog-service:
+    image: srinivas5044/catalog-service:latest
     build:
       context: ./catalog-service
       dockerfile: Dockerfile
@@ -78,6 +80,7 @@ services:
 
   # 2. Cart Service (Python FastAPI + MongoDB)
   cart-service:
+    image: srinivas5044/cart-service:latest
     build:
       context: ./cart-service
       dockerfile: Dockerfile
@@ -124,9 +127,11 @@ services:
 
   # 3. Shipping Service (Node.js Express + PostgreSQL)
   shipping-service:
+    image: srinivas5044/shipping-service:latest
     build:
       context: ./shipping-service
       dockerfile: Dockerfile
+
     container_name: shipping-service
     ports:
       - "3000:3000"
