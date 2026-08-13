@@ -52,8 +52,11 @@ const Navbar = ({ cartCount = 0, onLogout, onSearch }) => {
         <div className="fk-header-actions">
           {token ? (
             <div className="fk-user-menu">
-              <Link to="/account" className="fk-user-name" title="View Your Account">
-                👤 {userFullName || 'Account'} <span style={{ fontSize: '0.75rem', opacity: 0.7 }}>▾</span>
+              <Link to="/profile" className="fk-user-name" title="View Your Account & Profile">
+                <span className="fk-user-icon" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '28px', height: '28px', background: '#2874f0', color: '#fff', borderRadius: '50%', fontSize: '0.85rem' }}>
+                  👤
+                </span>
+                <span style={{ fontWeight: '700', fontSize: '0.95rem' }}>{userFullName || 'naga'}</span>
               </Link>
 
               <button onClick={handleLogout} className="fk-btn-logout">
@@ -61,6 +64,7 @@ const Navbar = ({ cartCount = 0, onLogout, onSearch }) => {
               </button>
             </div>
           ) : (
+
 
             <Link to="/login" className="fk-login-btn">
               👤 Login

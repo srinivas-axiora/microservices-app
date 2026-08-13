@@ -41,6 +41,8 @@ function App() {
             <Route path="/" element={<HomePage onCartChange={fetchCartCount} searchQuery={searchQuery} />} />
             <Route path="/login" element={<AuthPage onAuthSuccess={fetchCartCount} />} />
             <Route path="/account" element={<AccountPage />} />
+            <Route path="/profile" element={<AccountPage />} />
+
             <Route path="/products/:id" element={<ProductDetailPage onCartChange={fetchCartCount} />} />
             <Route path="/cart" element={<CartPage onCartChange={fetchCartCount} />} />
             <Route path="/checkout" element={<CheckoutPage onCartChange={fetchCartCount} />} />
