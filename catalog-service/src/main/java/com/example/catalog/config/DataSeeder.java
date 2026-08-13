@@ -34,20 +34,21 @@ public class DataSeeder implements CommandLineRunner {
             System.out.println("Default user 'admin@admin.com' seeded successfully.");
         }
 
-        // If products count is less than 36, clear and re-seed the full catalog
-        if (productRepository.count() < 36) {
-            System.out.println("Re-seeding catalog database with all 36 products...");
-            productRepository.deleteAll();
-            categoryRepository.deleteAll();
-        } else {
+        // Always ensure database has 36 products
+        if (productRepository.count() >= 36) {
             System.out.println("Catalog database already contains " + productRepository.count() + " products. Skipping seeding.");
             return;
         }
 
+        System.out.println("Clearing old data and seeding catalog database with 36 products...");
+        try {
+            productRepository.deleteAll();
+            categoryRepository.deleteAll();
+        } catch (Exception e) {
+            System.err.println("Warning clearing tables: " + e.getMessage());
+        }
 
-        System.out.println("Seeding catalog database with 35+ Flipkart-style products...");
-
-        // 1. Create Categories
+        // 1. Create & Save Categories
         Category grocery = categoryRepository.save(new Category("Grocery", "Daily essentials, staples and snacks", "https://images.unsplash.com/photo-1542838132-92c53300491e?w=200"));
         Category mobiles = categoryRepository.save(new Category("Mobiles", "Smartphones, accessories and tablets", "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200"));
         Category fashion = categoryRepository.save(new Category("Fashion", "Men, women clothing and footwear", "https://images.unsplash.com/photo-1445205170230-053b83016050?w=200"));
@@ -58,7 +59,7 @@ public class DataSeeder implements CommandLineRunner {
         Category toysBeauty = categoryRepository.save(new Category("Toys, Beauty & More", "Toys, cosmetics and personal care", "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200"));
         Category twoWheelers = categoryRepository.save(new Category("Two Wheelers", "Electric bikes, scooters and gear", "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=200"));
 
-        // 2. Seed 35+ Detailed Products across all categories
+        // 2. Seed 36 Products assigned to saved category IDs
         List<Product> products = Arrays.asList(
             // Mobiles & Tablets
             new Product("iPhone 15 Pro Max 256GB", "A17 Pro chip, Titanium design, 48MP camera system.", new BigDecimal("1199.00"), 50, mobiles.getId(), "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600"),
@@ -114,6 +115,6 @@ public class DataSeeder implements CommandLineRunner {
         );
 
         productRepository.saveAll(products);
-        System.out.println("Catalog database seeded with " + products.size() + " products successfully.");
+        System.out.println("Catalog database successfully seeded with all " + products.size() + " products!");
     }
 }

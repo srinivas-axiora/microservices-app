@@ -81,10 +81,19 @@ const HomePage = ({ onCartChange, searchQuery = '' }) => {
 
   // Filter products by category & search query
   const filteredProducts = products.filter(p => {
-    const matchesSearch = !searchQuery || p.name.toLowerCase().includes(searchQuery.toLowerCase()) || (p.description && p.description.toLowerCase().includes(searchQuery.toLowerCase()));
-    const matchesCat = !selectedCategory || String(p.categoryId) === String(selectedCategory.id);
+    const matchesSearch = !searchQuery || 
+      p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      (p.description && p.description.toLowerCase().includes(searchQuery.toLowerCase()));
+
+    if (!selectedCategory) return matchesSearch;
+
+    // Match by category ID or category Name
+    const matchesCat = String(p.categoryId) === String(selectedCategory.id) ||
+                       (selectedCategory.name && p.categoryName && p.categoryName.toLowerCase() === selectedCategory.name.toLowerCase());
+
     return matchesSearch && matchesCat;
   });
+
 
   return (
     <div className="fk-page-wrapper">
