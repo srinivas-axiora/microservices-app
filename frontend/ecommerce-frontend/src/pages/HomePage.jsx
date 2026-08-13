@@ -175,13 +175,21 @@ const HomePage = ({ onCartChange, searchQuery = '' }) => {
         </div>
       </div>
 
-      {/* 3. Catalog Best Sellers Section */}
+      {/* 3. Catalog Section with Logged-in Profile Header */}
       <div className="fk-main-section">
         <div className="fk-section-left">
           <div className="fk-section-header">
-            <div>
-              <h3>{selectedCategory ? selectedCategory.name : 'Fashion Best Sellers & Featured Products'}</h3>
-              <p className="fk-section-sub">Top choices with unbelievable discounts</p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+              <Link to="/profile" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: '#ebf3fe', padding: '0.5rem 1rem', borderRadius: '8px', border: '1px solid #cce3ff', textDecoration: 'none' }} title="Click to view Your Account Profile">
+                <span style={{ fontSize: '1.2rem' }}>👤</span>
+                <span style={{ fontWeight: '700', color: '#2874f0', fontSize: '1.05rem' }}>{localStorage.getItem('userFullName') || 'naga'}</span>
+                <span style={{ fontSize: '0.8rem', color: '#565959' }}>(Your Account Profile)</span>
+              </Link>
+
+              <div>
+                <h3>{selectedCategory ? selectedCategory.name : 'Explore All Catalog Products'}</h3>
+                <p className="fk-section-sub">Top choices with unbelievable discounts</p>
+              </div>
             </div>
             <button className="fk-view-all-btn">VIEW ALL ›</button>
           </div>
@@ -236,16 +244,25 @@ const HomePage = ({ onCartChange, searchQuery = '' }) => {
           )}
         </div>
 
-        {/* 4. Flipkart Right Sidebar Banner */}
+        {/* 4. User Profile Account Quick Access Card */}
         <div className="fk-sidebar-banner">
-          <div className="fk-promo-card">
-            <h4>Shop your fashion Needs</h4>
-            <p>with Latest & Trendy Choices</p>
-            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400" alt="Fashion Trends" />
-            <button className="fk-promo-btn">Shop Now ›</button>
-          </div>
+          <Link to="/profile" className="fk-promo-card" style={{ textDecoration: 'none', display: 'block', cursor: 'pointer' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+              <span style={{ fontSize: '1.6rem' }}>👤</span>
+              <h4 style={{ margin: 0, color: '#0f1111' }}>{localStorage.getItem('userFullName') || 'naga'}'s Account</h4>
+            </div>
+            <p style={{ fontSize: '0.85rem', color: '#565959', marginBottom: '0.75rem' }}>
+              Manage Orders, Login Security, Addresses & Wallet
+            </p>
+            <div style={{ background: '#f0f7ff', border: '1px solid #cce3ff', borderRadius: '8px', padding: '1rem', textAlign: 'center', marginBottom: '0.75rem' }}>
+              <span style={{ fontSize: '2.2rem' }}>📦</span>
+              <div style={{ fontWeight: '700', color: '#2874f0', marginTop: '0.25rem' }}>View Your Orders</div>
+            </div>
+            <button className="fk-promo-btn" style={{ width: '100%' }}>View Your Account ›</button>
+          </Link>
         </div>
       </div>
+
     </div>
   );
 };
