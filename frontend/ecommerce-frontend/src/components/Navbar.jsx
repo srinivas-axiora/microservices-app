@@ -53,8 +53,9 @@ const Navbar = ({ cartCount = 0, onLogout, onSearch }) => {
           {token ? (
             <div className="fk-user-menu">
               <Link to="/account" className="fk-user-name" title="View Your Account">
-                👤 {userFullName || 'Account'}
+                👤 {userFullName || 'Account'} <span style={{ fontSize: '0.75rem', opacity: 0.7 }}>▾</span>
               </Link>
+
               <button onClick={handleLogout} className="fk-btn-logout">
                 Logout
               </button>
