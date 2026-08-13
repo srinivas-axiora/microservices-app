@@ -52,12 +52,15 @@ const Navbar = ({ cartCount = 0, onLogout, onSearch }) => {
         <div className="fk-header-actions">
           {token ? (
             <div className="fk-user-menu">
-              <span className="fk-user-name">👤 {userFullName || 'Account'}</span>
+              <Link to="/account" className="fk-user-name" title="View Your Account">
+                👤 {userFullName || 'Account'}
+              </Link>
               <button onClick={handleLogout} className="fk-btn-logout">
                 Logout
               </button>
             </div>
           ) : (
+
             <Link to="/login" className="fk-login-btn">
               👤 Login
             </Link>

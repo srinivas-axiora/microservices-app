@@ -266,6 +266,90 @@ a {
   white-space: nowrap;
 }
 
+/* 5. Your Account Grid Page */
+.account-container {
+  max-width: 1080px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.account-heading {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #0f1111;
+  margin-bottom: 1.5rem;
+}
+
+.account-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+@media (max-width: 900px) {
+  .account-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .account-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.account-card {
+  background: #ffffff;
+  border: 1px solid #D5D9D9;
+  border-radius: 8px;
+  padding: 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.account-card:hover {
+  background: #f7fafa;
+  border-color: #a8acac;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.account-card-icon {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f7ff;
+  border-radius: 8px;
+  font-size: 1.8rem;
+}
+
+.account-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.account-card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0f1111;
+  margin-bottom: 0.35rem;
+}
+
+.account-card-desc {
+  font-size: 0.85rem;
+  color: #565959;
+  line-height: 1.35;
+}
+
 /* Toast */
 .fk-toast {
   position: fixed;
