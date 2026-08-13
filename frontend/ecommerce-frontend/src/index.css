@@ -145,25 +145,24 @@ a {
 }
 
 .fk-user-name {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  font-weight: 700;
+  gap: 0.4rem;
+  font-weight: 600;
   font-size: 0.95rem;
   color: var(--fk-text-dark);
-  padding: 0.4rem 0.75rem;
+  padding: 0.4rem 0.65rem;
   border-radius: 6px;
   cursor: pointer;
   text-decoration: none;
-  transition: all 0.2s ease-in-out;
-  border: 1px solid transparent;
+  transition: background 0.2s, color 0.2s;
 }
 
 .fk-user-name:hover {
   background-color: #f0f7ff;
   color: var(--fk-blue);
-  border-color: #cce3ff;
 }
+
 
 
 .fk-btn-logout {
